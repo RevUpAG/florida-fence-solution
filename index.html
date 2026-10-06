@@ -197,8 +197,9 @@ section{padding:clamp(72px,9vw,128px) 0}
 
 /* gallery slider */
 .slider-nav{display:flex;gap:10px}
-.icon-btn{width:52px;height:52px;border-radius:50%;border:1.5px solid var(--line);background:#fff;cursor:pointer;font-size:1.2rem;display:grid;place-items:center;transition:background .2s,transform .2s var(--ease),border-color .2s}
-.icon-btn:hover{background:var(--dark);color:#fff;border-color:var(--dark)}
+.icon-btn{width:64px;height:64px;border-radius:50%;border:0;background:var(--dark);color:#fff;font-weight:700;font-size:1.5rem!important;box-shadow:0 12px 28px -12px rgba(17,17,17,.6);cursor:pointer;font-size:1.2rem;display:grid;place-items:center;transition:background .2s,transform .2s var(--ease),border-color .2s}
+.icon-btn:hover{background:var(--accent);color:var(--dark);transform:translateY(-2px)}
+.icon-btn:disabled{opacity:.3;cursor:default;transform:none;background:var(--dark);color:#fff}
 .icon-btn:active{transform:scale(.94)}
 .track{display:flex;gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-left:max(var(--pad),(100vw - var(--max))/2 + var(--pad));padding:4px max(var(--pad),(100vw - var(--max))/2 + var(--pad)) 20px;scrollbar-width:none;overscroll-behavior-x:contain}
 .track::-webkit-scrollbar{display:none}
@@ -217,16 +218,28 @@ section{padding:clamp(72px,9vw,128px) 0}
 .lb-bar button:active{transform:scale(.94)}
 
 /* process */
-.steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
-.steps li{position:relative;padding:28px;border-radius:var(--r);background:var(--dark-2);border:1px solid var(--line-dark)}
-.steps li::before{counter-increment:s;content:"0" counter(s);display:block;font-size:clamp(2.4rem,2rem + 1.5vw,3.4rem);font-weight:800;letter-spacing:-.04em;color:var(--accent);line-height:1;margin-bottom:18px}
+.steps{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;counter-reset:s;position:relative}
+.steps::before{content:"";position:absolute;left:0;right:0;top:27px;height:2px;background:linear-gradient(90deg,var(--accent),var(--line-dark))}
+.steps li{position:relative;padding-top:76px}
+.steps li::before{counter-increment:s;content:"0" counter(s);position:absolute;top:0;left:0;width:56px;height:56px;border-radius:50%;background:var(--dark);border:2px solid var(--accent);display:grid;place-items:center;font-weight:800;color:var(--accent);font-size:1.05rem}
 .steps h3{color:#fff;margin-bottom:6px}
 .steps p{font-size:.97rem}
+@media (max-width:767px){
+  .steps{grid-template-columns:1fr!important;gap:0}
+  .steps::before{left:19px;right:auto;top:8px;bottom:8px;width:2px;height:auto;background:linear-gradient(var(--accent),var(--line-dark))}
+  .steps li{padding:0 0 22px 60px;min-height:40px}
+  .steps li:last-child{padding-bottom:0}
+  .steps li::before{width:40px;height:40px;font-size:.85rem}
+  .steps h3{margin-bottom:2px}
+}
 
 /* areas + marquee */
 .marquee{overflow:hidden;border-block:1px solid var(--line);padding:22px 0;margin-bottom:clamp(48px,6vw,80px);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}
 .marquee-inner{display:flex;width:max-content;animation:marquee 45s linear infinite}
 .marquee:hover .marquee-inner{animation-play-state:paused}
+.marquee + .marquee{border-top:0;margin-top:calc(clamp(48px,6vw,80px) * -1)}
+.marquee.rev .marquee-inner{animation-direction:reverse;animation-duration:38s}
+.marquee.rev li{color:var(--muted);font-weight:700}
 .marquee ul{display:flex;list-style:none;flex:none}
 .marquee li{font-size:clamp(1.5rem,1.2rem + 1.4vw,2.4rem);font-weight:800;letter-spacing:-.03em;padding:0 22px;white-space:nowrap;display:flex;align-items:center;gap:44px}
 .marquee li::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--accent)}
@@ -321,19 +334,23 @@ footer a:hover{color:#fff}
 /* mobile carousel arrows (built by JS) */
 .c-nav{display:none}
 @media (max-width:1024px){.reviews{grid-template-columns:1fr 1fr}}
-@media (max-width:640px){
+@media (max-width:767px){
+  .slider-nav{display:none}
   [data-carousel]{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 calc(var(--pad) * -1);padding:4px var(--pad) 8px;scroll-padding-left:var(--pad);scrollbar-width:none;list-style:none}
   [data-carousel]::-webkit-scrollbar{display:none}
   [data-carousel] > *{flex:0 0 84%;scroll-snap-align:start;grid-column:auto!important;grid-row:auto!important}
   .track[data-carousel]{margin:0;padding:4px var(--pad) 8px}
   .bento[data-carousel] > *{min-height:300px}
   .c-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px}
-  .c-nav .dots{font-size:.9rem;font-weight:700;color:var(--muted)}
-  .dark .c-nav .dots{color:var(--muted-dark)}
-  .c-nav div{display:flex;gap:10px}
-  .c-nav button{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--dark);font-size:1.1rem;cursor:pointer}
-  .c-nav button:disabled{opacity:.35}
-  .dark .c-nav button{background:var(--dark-3);border-color:var(--line-dark);color:#fff}
+  .c-nav .dots{display:flex;gap:6px;align-items:center}
+  .c-nav .dots button{width:8px;height:8px;min-width:0;border-radius:999px;border:0;padding:0;background:#cfc8bd;transition:width .3s var(--ease),background .3s}
+  .c-nav .dots button.on{width:24px;background:var(--dark)}
+  .c-nav .dots button::after{content:"";position:absolute;inset:-12px}
+  .c-nav .dots button{position:relative}
+  .c-nav .arrows{display:flex;gap:10px}
+  .c-nav .arrows button{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--dark);font-size:1.1rem;cursor:pointer}
+  .c-nav .arrows button:disabled{opacity:.35}
+  .dark .c-nav .arrows button{background:var(--dark-3);border-color:var(--line-dark);color:#fff}
   .track + .c-nav{padding:0 var(--pad)}
   .map-block{min-height:0;display:flex;flex-direction:column}
   .map-block iframe{position:static;height:300px}
@@ -360,7 +377,6 @@ footer a:hover{color:#fff}
   .b-big{min-height:380px}
   .why .wrap,.faq-grid,.estimate .wrap{grid-template-columns:1fr}
   .why-img{aspect-ratio:16/11;max-height:520px}
-  .steps{grid-template-columns:repeat(2,1fr)}
   .counties{grid-template-columns:1fr 1fr}
   .county.home{grid-column:1/-1}
 }
@@ -377,8 +393,7 @@ footer a:hover{color:#fff}
   .b-big,.b-wide{grid-column:auto;grid-row:auto}
   .b-big{min-height:340px}
   .card.photo{min-height:280px}
-  .steps,.counties{grid-template-columns:1fr}
-  .slider-nav{display:none}
+  .counties{grid-template-columns:1fr}
   .slide{flex-basis:78vw}
   footer .wrap{grid-template-columns:1fr}
   .wa-float{display:none}
@@ -492,7 +507,7 @@ footer a:hover{color:#fff}
         <span class="kicker reveal">Why us</span>
         <h2 class="reveal" style="--i:1">A family crew. Not a call center.</h2>
         <p class="lead reveal" style="--i:2">We're based in Hollywood. The people who quote your fence are the people who build it.</p>
-        <ol class="reasons" data-carousel>
+        <ol class="reasons">
           <li class="reveal"><span class="n" aria-hidden="true">1</span><div><h3>Licensed, bonded and insured</h3><p>Your property is covered from day one.</p></div></li>
           <li class="reveal" style="--i:1"><span class="n" aria-hidden="true">2</span><div><h3>Permits and HOA, handled</h3><p>We file with your city and build to code.</p></div></li>
           <li class="reveal" style="--i:2"><span class="n" aria-hidden="true">3</span><div><h3>Built for this climate</h3><p>Posts and materials picked for humidity, salt air and storms.</p></div></li>
@@ -533,7 +548,7 @@ footer a:hover{color:#fff}
   <section id="process" class="dark">
     <div class="wrap">
       <div class="head"><div class="reveal"><span class="kicker">How it works</span><h2>From quote to final inspection</h2></div></div>
-      <ol class="steps" data-carousel>
+      <ol class="steps">
         <li class="reveal"><h3>Free estimate</h3><p>We come out, measure and give you a written quote.</p></li>
         <li class="reveal" style="--i:1"><h3>Design &amp; permit</h3><p>You pick the style. We file the permit and HOA paperwork.</p></li>
         <li class="reveal" style="--i:2"><h3>Install</h3><p>Most homes take 1 to 3 days once the permit clears.</p></li>
@@ -547,12 +562,16 @@ footer a:hover{color:#fff}
       <ul><li>Hollywood</li><li>Fort Lauderdale</li><li>Weston</li><li>Parkland</li><li>Coral Springs</li><li>Pembroke Pines</li><li>Miramar</li><li>Davie</li><li>Plantation</li><li>Aventura</li><li>Doral</li><li>Boca Raton</li><li>Delray Beach</li><li>Wellington</li></ul>
       <ul><li>Hollywood</li><li>Fort Lauderdale</li><li>Weston</li><li>Parkland</li><li>Coral Springs</li><li>Pembroke Pines</li><li>Miramar</li><li>Davie</li><li>Plantation</li><li>Aventura</li><li>Doral</li><li>Boca Raton</li><li>Delray Beach</li><li>Wellington</li></ul>
     </div></div>
+    <div class="marquee rev" aria-hidden="true"><div class="marquee-inner">
+      <ul><li>Sunrise</li><li>Cooper City</li><li>Southwest Ranches</li><li>Lauderhill</li><li>Pompano Beach</li><li>Deerfield Beach</li><li>Miami Gardens</li><li>North Miami Beach</li><li>Hialeah</li><li>Miami Lakes</li><li>Boynton Beach</li></ul>
+      <ul><li>Sunrise</li><li>Cooper City</li><li>Southwest Ranches</li><li>Lauderhill</li><li>Pompano Beach</li><li>Deerfield Beach</li><li>Miami Gardens</li><li>North Miami Beach</li><li>Hialeah</li><li>Miami Lakes</li><li>Boynton Beach</li></ul>
+    </div></div>
     <div class="wrap">
       <div class="head">
         <div class="reveal"><span class="kicker">Service area</span><h2>Where we work</h2></div>
         <p class="lead reveal" style="--i:1">Based in Hollywood. Three counties.</p>
       </div>
-      <div class="counties" data-carousel>
+      <div class="counties">
         <div class="county home reveal"><h3>Broward <small>home base</small></h3><p>Hollywood, Fort Lauderdale, Weston, Parkland, Coral Springs, Pembroke Pines, Miramar, Davie, Plantation, Sunrise, Cooper City, Southwest Ranches, Lauderhill, Pompano Beach, Deerfield Beach.</p></div>
         <div class="county reveal" style="--i:1"><h3>Miami-Dade</h3><p>Aventura, Miami Gardens, North Miami Beach, Hialeah, Miami Lakes, Doral.</p></div>
         <div class="county reveal" style="--i:2"><h3>Palm Beach</h3><p>Boca Raton, Delray Beach, Boynton Beach, Wellington.</p></div>
@@ -663,17 +682,19 @@ const io = new IntersectionObserver(es => es.forEach(e => {
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 
-// Mobile carousels: prev/next arrows + position counter
+// Mobile carousels (<768px): dots + prev/next arrows
 document.querySelectorAll('[data-carousel]').forEach(c => {
   const nav = document.createElement('div');
   nav.className = 'c-nav';
-  nav.innerHTML = '<span class="dots" aria-live="polite"></span><div><button type="button" aria-label="Previous">←</button><button type="button" aria-label="Next">→</button></div>';
+  const items = [...c.children];
+  nav.innerHTML = '<div class="dots">' + items.map((_, i) => `<button type="button" aria-label="Go to ${i + 1}"></button>`).join('') + '</div><div class="arrows"><button type="button" aria-label="Previous">←</button><button type="button" aria-label="Next">→</button></div>';
   c.after(nav);
-  const [prev, next] = nav.querySelectorAll('button'), dots = nav.querySelector('.dots'), items = [...c.children];
+  const [prev, next] = nav.querySelectorAll('.arrows button'), dots = [...nav.querySelectorAll('.dots button')];
   const step = () => items[0].offsetWidth + 12;
+  dots.forEach((d, i) => d.onclick = () => c.scrollTo({left: i * step(), behavior: reduce ? 'auto' : 'smooth'}));
   const update = () => {
-    const i = Math.round(c.scrollLeft / step());
-    dots.textContent = `${Math.min(i + 1, items.length)} / ${items.length}`;
+    const i = c.scrollLeft + c.clientWidth >= c.scrollWidth - 4 ? items.length - 1 : Math.round(c.scrollLeft / step());
+    dots.forEach((d, j) => d.classList.toggle('on', j === i));
     prev.disabled = c.scrollLeft < 4;
     next.disabled = c.scrollLeft + c.clientWidth >= c.scrollWidth - 4;
   };
