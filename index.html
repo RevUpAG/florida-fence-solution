@@ -444,7 +444,7 @@ footer a:hover{color:#fff;text-decoration:underline}
           <text x="36" y="350">MIAMI-DADE</text>
         </g>
         <circle cx="244" cy="262" r="6" fill="#c9ab80"/>
-        <text x="236" y="250" text-anchor="end" font-family="IBM Plex Sans,sans-serif" font-size="12" fill="#c9ab80">Hollywood (base)</text>
+        <text x="232" y="244" text-anchor="end" font-family="IBM Plex Sans,sans-serif" font-size="12" fill="#c9ab80">Hollywood (base)</text>
         <text x="292" y="436" text-anchor="end" font-family="IBM Plex Sans,sans-serif" font-size="11" fill="#a39a8f">Atlantic →</text>
       </svg>
       <div>
@@ -548,7 +548,8 @@ form.addEventListener('submit', async e => {
   if (FORMSPREE) fetch('https://formspree.io/f/' + FORMSPREE, {method: 'POST', body: f, headers: {Accept: 'application/json'}}).catch(() => {});
   if (via === 'email') { location.href = `mailto:${EMAIL}?subject=${encodeURIComponent('Free estimate request')}&body=${encodeURIComponent(msg)}`; return; }
   const url = `https://wa.me/${PHONE}?text=` + encodeURIComponent(msg);
-  if (!window.open(url, '_blank', 'noopener')) location.href = url;
+  const w = window.open(url, '_blank'); // no 'noopener' flag: it makes open() return null even on success
+  if (w) w.opener = null; else location.href = url;
   status.textContent = document.documentElement.lang === 'es' ? 'Listo. Termine de enviar en WhatsApp.' : 'Done. Finish sending in WhatsApp.';
 });
 
