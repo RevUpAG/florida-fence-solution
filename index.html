@@ -46,7 +46,9 @@
   "logo": "https://revupag.github.io/florida-fence-solution/img/logo.png",
   "telephone": "+1-754-208-9268",
   "email": "floresfloridafencing@gmail.com",
-  "address": {"@type": "PostalAddress", "addressLocality": "Hollywood", "addressRegion": "FL", "addressCountry": "US"},
+  "address": {"@type": "PostalAddress", "streetAddress": "1331 N 70th Way", "addressLocality": "Hollywood", "addressRegion": "FL", "postalCode": "33024", "addressCountry": "US"},
+  "geo": {"@type": "GeoCoordinates", "latitude": 26.0213951, "longitude": -80.2297613},
+  "hasMap": "https://maps.google.com/?cid=273622298774698385",
   "areaServed": [{"@type":"AdministrativeArea","name":"Broward County, FL"},{"@type":"AdministrativeArea","name":"Miami-Dade County, FL"},{"@type":"AdministrativeArea","name":"Palm Beach County, FL"}],
   "openingHoursSpecification": {"@type": "OpeningHoursSpecification","dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"],"opens": "08:00","closes": "18:00"},
   "knowsLanguage": ["en","es"],
@@ -103,6 +105,7 @@ section{padding:clamp(72px,9vw,128px) 0}
 .lead{color:var(--muted);max-width:58ch;font-size:clamp(1.05rem,1rem + .25vw,1.2rem)}
 .head{display:flex;justify-content:space-between;align-items:end;gap:24px 48px;flex-wrap:wrap;margin-bottom:clamp(32px,4vw,56px)}
 .head > div{max-width:720px}
+.wrap > *{min-width:0}
 :focus-visible{outline:3px solid var(--accent);outline-offset:3px;border-radius:6px}
 
 /* buttons */
@@ -287,6 +290,56 @@ footer a:hover{color:#fff}
 @keyframes pulse{0%{transform:scale(1);opacity:.6}70%,100%{transform:scale(1.45);opacity:0}}
 .mobile-bar{display:none}
 
+
+/* reviews */
+.reviews-sec{background:var(--light-2)}
+.g-badge{display:flex;align-items:center;gap:16px;text-decoration:none;background:#fff;border-radius:var(--r);padding:16px 22px;box-shadow:0 10px 30px -18px rgba(17,17,17,.35);transition:transform .3s var(--ease)}
+.g-badge:hover{transform:translateY(-3px)}
+.g-badge > b{font-size:3rem;font-weight:800;letter-spacing:-.04em;line-height:1}
+.g-badge > span{font-weight:600;font-size:.92rem;line-height:1.4}
+.stars{color:var(--accent);letter-spacing:2px}
+.g-badge .stars{font-size:1.15rem}
+.reviews{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.review{margin:0;background:#fff;border-radius:var(--r);padding:28px;display:flex;flex-direction:column;gap:16px;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.review:hover{transform:translateY(-6px);box-shadow:0 24px 50px -24px rgba(17,17,17,.3)}
+.review .stars{font-size:1.1rem}
+.review blockquote{flex:1;font-size:1.02rem;line-height:1.6}
+.review figcaption{display:flex;align-items:center;gap:12px;font-weight:700}
+.review figcaption small{display:block;font-weight:500;color:var(--muted);font-size:.82rem}
+.review .av{width:42px;height:42px;border-radius:50%;background:var(--dark);color:var(--accent);display:grid;place-items:center;font-weight:800;flex:none}
+.review.more{background:var(--dark);color:#fff;text-decoration:none;justify-content:center;align-items:flex-start}
+.review.more b{font-size:1.5rem;letter-spacing:-.02em}
+.review.more span{color:var(--accent);font-weight:700}
+
+/* map */
+.map-block{position:relative;margin-top:16px;border-radius:var(--r-lg);overflow:hidden;background:var(--light-2);min-height:420px}
+.map-block iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.map-card{position:absolute;right:24px;bottom:40px;background:#fff;border-radius:var(--r);padding:24px;max-width:320px;box-shadow:0 20px 40px -20px rgba(17,17,17,.45)}
+.map-card h3{margin-bottom:6px}
+.map-card p{color:var(--muted);margin-bottom:16px}
+
+/* mobile carousel arrows (built by JS) */
+.c-nav{display:none}
+@media (max-width:1024px){.reviews{grid-template-columns:1fr 1fr}}
+@media (max-width:640px){
+  [data-carousel]{display:flex!important;overflow-x:auto;scroll-snap-type:x mandatory;gap:12px;margin:0 calc(var(--pad) * -1);padding:4px var(--pad) 8px;scroll-padding-left:var(--pad);scrollbar-width:none;list-style:none}
+  [data-carousel]::-webkit-scrollbar{display:none}
+  [data-carousel] > *{flex:0 0 84%;scroll-snap-align:start;grid-column:auto!important;grid-row:auto!important}
+  .track[data-carousel]{margin:0;padding:4px var(--pad) 8px}
+  .bento[data-carousel] > *{min-height:300px}
+  .c-nav{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px}
+  .c-nav .dots{font-size:.9rem;font-weight:700;color:var(--muted)}
+  .dark .c-nav .dots{color:var(--muted-dark)}
+  .c-nav div{display:flex;gap:10px}
+  .c-nav button{width:48px;height:48px;border-radius:50%;border:1.5px solid var(--line);background:#fff;color:var(--dark);font-size:1.1rem;cursor:pointer}
+  .c-nav button:disabled{opacity:.35}
+  .dark .c-nav button{background:var(--dark-3);border-color:var(--line-dark);color:#fff}
+  .track + .c-nav{padding:0 var(--pad)}
+  .map-block{min-height:0;display:flex;flex-direction:column}
+  .map-block iframe{position:static;height:300px}
+  .map-card{position:static;max-width:none;box-shadow:none;border-radius:0}
+}
+
 /* reveal */
 .js .reveal{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease);transition-delay:calc(var(--i,0) * 80ms)}
 .js .reveal.in{opacity:1;transform:none}
@@ -346,6 +399,7 @@ footer a:hover{color:#fff}
     <a class="logo" href="#top" aria-label="Florida Fence Solution, home"><img src="img/logo.png" alt="Florida Fence Solution" width="69" height="44"></a>
     <nav aria-label="Main"><ul>
       <li><a href="#fences">Fences</a></li>
+      <li><a href="#reviews">Reviews</a></li>
       <li><a href="#work">Our work</a></li>
       <li><a href="#process">Process</a></li>
       <li><a href="#areas">Areas</a></li>
@@ -370,8 +424,7 @@ footer a:hover{color:#fff}
           <a class="btn btn-accent" href="#estimate">Get a free estimate <span class="arr" aria-hidden="true">→</span></a>
           <a class="btn btn-glass" href="tel:+17542089268" data-ev="hero">Call (754) 208-9268</a>
         </div>
-        <!-- TODO: replace href with the client's Google Business Profile reviews link -->
-        <a class="rating reveal" style="--i:4" href="https://www.google.com/maps/search/?api=1&amp;query=Florida+Fence+Solution+Hollywood+FL" target="_blank" rel="noopener"><b>5.0</b><span class="stars" aria-hidden="true">★★★★★</span><span>on Google</span></a>
+        <a class="rating reveal" style="--i:4" href="#reviews"><b>5.0</b><span class="stars" aria-hidden="true">★★★★★</span><span>17 Google reviews</span></a>
       </div>
     </div>
   </section>
@@ -381,12 +434,33 @@ footer a:hover{color:#fff}
       <!-- TODO: add the client's state contractor license number somewhere visible -->
       <ul>
         <li class="reveal"><b data-count="20" data-suffix="+">20+</b><span>Years in the trade</span></li>
-        <li class="reveal" style="--i:1"><b data-count="5" data-dec="1">5.0</b><span>Google rating</span></li>
+        <li class="reveal" style="--i:1"><b data-count="5" data-dec="1">5.0</b><span>Stars on Google</span></li>
         <li class="reveal" style="--i:2"><b data-count="3">3</b><span>Counties served</span></li>
         <li class="reveal" style="--i:3"><b data-count="8">8</b><span>Fence styles</span></li>
       </ul>
     </div>
   </div>
+
+
+  <section id="reviews" class="reviews-sec">
+    <div class="wrap">
+      <div class="head">
+        <div class="reveal"><span class="kicker">Google reviews</span><h2>5 stars on Google. Every single review.</h2></div>
+        <a class="g-badge reveal" style="--i:1" href="https://maps.google.com/?cid=273622298774698385" target="_blank" rel="noopener">
+          <b>5.0</b><span><span class="stars" aria-hidden="true">★★★★★</span><br>17 reviews on Google</span>
+        </a>
+      </div>
+      <!-- Real reviews copied from the Google Business Profile (Oct 2026). Update the count above as it grows. -->
+      <div class="reviews" data-carousel>
+        <figure class="review reveal"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>"Highly recommend them, family run business. Ethan and his dad were fantastic to deal with. Gave me a great price on a durafence for my backyard. The work took 2 days and was excellent and professional."</blockquote><figcaption><span class="av">A</span>A. V.<small>Google review</small></figcaption></figure>
+        <figure class="review reveal" style="--i:1"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>"Ethan was fantastic to work with. He was very friendly, responsive, and able to come out the same day, which I really appreciated. He quickly took care of our fence repair and made the whole process easy and stress-free."</blockquote><figcaption><span class="av">A</span>Alexander O.<small>Google review</small></figcaption></figure>
+        <figure class="review reveal" style="--i:2"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>"Ethan and the Team were Amazing! They worked with me, and I got exactly what i was looking for! We love our new fence! Very professional, Highly Recommended!"</blockquote><figcaption><span class="av">M</span>Michael B.<small>Google review</small></figcaption></figure>
+        <figure class="review reveal"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>"This is a family business, which is always a plus for me. I enjoy dealing directly with the owners Ethan and his dad."</blockquote><figcaption><span class="av">A</span>Alan T.<small>Google Local Guide</small></figcaption></figure>
+        <figure class="review reveal" style="--i:1"><span class="stars" aria-label="5 stars">★★★★★</span><blockquote>"Ethan helped with the entire process and did a great job on my new fence! The work was quick and professional!"</blockquote><figcaption><span class="av">A</span>Anna N.<small>Google review</small></figcaption></figure>
+        <a class="review more reveal" style="--i:2" href="https://maps.google.com/?cid=273622298774698385" target="_blank" rel="noopener"><b>Read all 17 reviews</b><span>on Google Maps →</span></a>
+      </div>
+    </div>
+  </section>
 
   <section id="fences">
     <div class="wrap">
@@ -394,7 +468,7 @@ footer a:hover{color:#fff}
         <div class="reveal"><span class="kicker">What we install</span><h2>Every fence, built to last here.</h2></div>
         <p class="lead reveal" style="--i:1">Homes and businesses. Every job is measured, permitted and built by our own crew.</p>
       </div>
-      <div class="bento">
+      <div class="bento" data-carousel>
         <article class="card photo b-big reveal"><img src="img/white-pvc-privacy-fence-backyard-pool-700.webp" srcset="img/white-pvc-privacy-fence-backyard-pool-700.webp 700w, img/white-pvc-privacy-fence-backyard-pool.webp 1200w" sizes="(max-width:640px) 100vw, 50vw" width="700" height="525" loading="lazy" alt="White PVC privacy fence around a backyard with an above-ground pool"><span class="tag">Vinyl</span><h3>PVC vinyl</h3><p>No painting. Hose it off.</p></article>
         <article class="card photo b-wide reveal" style="--i:1"><img src="img/horizontal-pine-wood-fence-700.webp" srcset="img/horizontal-pine-wood-fence-700.webp 700w, img/horizontal-pine-wood-fence.webp 1200w" sizes="(max-width:640px) 100vw, 50vw" width="700" height="525" loading="lazy" alt="New horizontal pine wood fence with tropical plants"><span class="tag">Wood</span><h3>Horizontal wood</h3><p>Clean, modern lines.</p></article>
         <article class="card photo reveal" style="--i:2"><img src="img/black-chain-link-fence-garden-700.webp" width="700" height="525" loading="lazy" alt="Black chain-link fence along a garden path"><span class="tag">Coated steel</span><h3>Black chain-link</h3><p>Security without blocking the view.</p></article>
@@ -418,7 +492,7 @@ footer a:hover{color:#fff}
         <span class="kicker reveal">Why us</span>
         <h2 class="reveal" style="--i:1">A family crew. Not a call center.</h2>
         <p class="lead reveal" style="--i:2">We're based in Hollywood. The people who quote your fence are the people who build it.</p>
-        <ol class="reasons">
+        <ol class="reasons" data-carousel>
           <li class="reveal"><span class="n" aria-hidden="true">1</span><div><h3>Licensed, bonded and insured</h3><p>Your property is covered from day one.</p></div></li>
           <li class="reveal" style="--i:1"><span class="n" aria-hidden="true">2</span><div><h3>Permits and HOA, handled</h3><p>We file with your city and build to code.</p></div></li>
           <li class="reveal" style="--i:2"><span class="n" aria-hidden="true">3</span><div><h3>Built for this climate</h3><p>Posts and materials picked for humidity, salt air and storms.</p></div></li>
@@ -436,7 +510,7 @@ footer a:hover{color:#fff}
       </div>
     </div>
     <!-- TODO: add the city to each caption (ask client where each job was) -->
-    <div class="track" id="track">
+    <div class="track" id="track" data-carousel>
       <figure class="slide"><button type="button"><img src="img/louvered-pvc-privacy-panels-700.webp" width="674" height="1200" loading="lazy" data-full="img/louvered-pvc-privacy-panels.webp" alt="New white louvered PVC privacy panels beside a palm"></button><figcaption><span>01</span>Louvered PVC privacy panels</figcaption></figure>
       <figure class="slide"><button type="button"><img src="img/white-pvc-privacy-fence-backyard-pool-700.webp" width="700" height="525" loading="lazy" data-full="img/white-pvc-privacy-fence-backyard-pool.webp" alt="White PVC privacy fence around a backyard with artificial turf and an above-ground pool"></button><figcaption><span>02</span>White PVC privacy fence</figcaption></figure>
       <figure class="slide"><button type="button"><img src="img/horizontal-pine-wood-fence-700.webp" width="700" height="525" loading="lazy" data-full="img/horizontal-pine-wood-fence.webp" alt="Close-up of a new horizontal pine wood fence with tropical plants in front"></button><figcaption><span>03</span>Horizontal wood</figcaption></figure>
@@ -459,7 +533,7 @@ footer a:hover{color:#fff}
   <section id="process" class="dark">
     <div class="wrap">
       <div class="head"><div class="reveal"><span class="kicker">How it works</span><h2>From quote to final inspection</h2></div></div>
-      <ol class="steps">
+      <ol class="steps" data-carousel>
         <li class="reveal"><h3>Free estimate</h3><p>We come out, measure and give you a written quote.</p></li>
         <li class="reveal" style="--i:1"><h3>Design &amp; permit</h3><p>You pick the style. We file the permit and HOA paperwork.</p></li>
         <li class="reveal" style="--i:2"><h3>Install</h3><p>Most homes take 1 to 3 days once the permit clears.</p></li>
@@ -478,10 +552,19 @@ footer a:hover{color:#fff}
         <div class="reveal"><span class="kicker">Service area</span><h2>Where we work</h2></div>
         <p class="lead reveal" style="--i:1">Based in Hollywood. Three counties.</p>
       </div>
-      <div class="counties">
+      <div class="counties" data-carousel>
         <div class="county home reveal"><h3>Broward <small>home base</small></h3><p>Hollywood, Fort Lauderdale, Weston, Parkland, Coral Springs, Pembroke Pines, Miramar, Davie, Plantation, Sunrise, Cooper City, Southwest Ranches, Lauderhill, Pompano Beach, Deerfield Beach.</p></div>
         <div class="county reveal" style="--i:1"><h3>Miami-Dade</h3><p>Aventura, Miami Gardens, North Miami Beach, Hialeah, Miami Lakes, Doral.</p></div>
         <div class="county reveal" style="--i:2"><h3>Palm Beach</h3><p>Boca Raton, Delray Beach, Boynton Beach, Wellington.</p></div>
+      </div>
+      <div class="map-block reveal">
+        <iframe title="Map: Florida Fence Solution, 1331 N 70th Way, Hollywood, FL" src="https://www.google.com/maps?q=Florida+Fence+Solution,+1331+N+70th+Way,+Hollywood,+FL+33024&amp;z=14&amp;output=embed" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <div class="map-card">
+          <span class="kicker">Find us</span>
+          <h3>Florida Fence Solution</h3>
+          <p>1331 N 70th Way<br>Hollywood, FL 33024</p>
+          <a class="btn btn-accent" href="https://www.google.com/maps/dir/?api=1&amp;destination=Florida+Fence+Solution,+1331+N+70th+Way,+Hollywood,+FL+33024" target="_blank" rel="noopener">Get directions <span class="arr" aria-hidden="true">→</span></a>
+        </div>
       </div>
     </div>
   </section>
@@ -509,6 +592,7 @@ footer a:hover{color:#fff}
           <li class="reveal"><span>Phone</span><a href="tel:+17542089268" data-ev="contact">(754) 208-9268</a></li>
           <li class="reveal" style="--i:1"><span>WhatsApp</span><a href="https://wa.me/17542089268" target="_blank" rel="noopener" data-ev="contact">Message us</a></li>
           <li class="reveal" style="--i:2"><span>Email</span><a href="mailto:floresfloridafencing@gmail.com">floresfloridafencing@gmail.com</a></li>
+          <li class="reveal" style="--i:3"><span>Address</span><a href="https://maps.google.com/?cid=273622298774698385" target="_blank" rel="noopener">1331 N 70th Way, Hollywood, FL 33024</a></li>
           <li class="reveal" style="--i:3"><span>Hours</span><b>Mon–Sat, 8 AM–6 PM</b></li>
         </ul>
         <div class="pays reveal"><small>We accept</small><div><span class="pay">Cash</span><span class="pay"><img src="img/pay/zelle.svg" alt="Zelle" width="60" height="22" loading="lazy"></span><span class="pay"><img src="img/pay/visa.svg" alt="Visa" width="50" height="22" loading="lazy"></span><span class="pay"><img src="img/pay/mastercard.svg" alt="Mastercard" width="36" height="22" loading="lazy"></span><span class="pay"><img src="img/pay/amex.svg" alt="American Express" width="30" height="30" style="height:30px" loading="lazy"></span><span class="pay"><img src="img/pay/discover.svg" alt="Discover" width="60" height="22" loading="lazy"></span></div></div>
@@ -577,6 +661,27 @@ const io = new IntersectionObserver(es => es.forEach(e => {
   io.unobserve(e.target);
 }), {threshold: .15, rootMargin: '0px 0px -40px 0px'});
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+
+// Mobile carousels: prev/next arrows + position counter
+document.querySelectorAll('[data-carousel]').forEach(c => {
+  const nav = document.createElement('div');
+  nav.className = 'c-nav';
+  nav.innerHTML = '<span class="dots" aria-live="polite"></span><div><button type="button" aria-label="Previous">←</button><button type="button" aria-label="Next">→</button></div>';
+  c.after(nav);
+  const [prev, next] = nav.querySelectorAll('button'), dots = nav.querySelector('.dots'), items = [...c.children];
+  const step = () => items[0].offsetWidth + 12;
+  const update = () => {
+    const i = Math.round(c.scrollLeft / step());
+    dots.textContent = `${Math.min(i + 1, items.length)} / ${items.length}`;
+    prev.disabled = c.scrollLeft < 4;
+    next.disabled = c.scrollLeft + c.clientWidth >= c.scrollWidth - 4;
+  };
+  prev.onclick = () => c.scrollBy({left: -step(), behavior: reduce ? 'auto' : 'smooth'});
+  next.onclick = () => c.scrollBy({left: step(), behavior: reduce ? 'auto' : 'smooth'});
+  c.addEventListener('scroll', update, {passive: true});
+  addEventListener('resize', update); update();
+});
 
 // Analytics: tel / WhatsApp clicks -> dataLayer (GTM picks these up)
 window.dataLayer = window.dataLayer || [];
@@ -670,7 +775,7 @@ const ES = {
 "Board-on-board wood":"Madera board-on-board","Stockade wood":"Madera stockade","Shadowbox wood":"Madera shadowbox",
 "Send on WhatsApp":"Enviar por WhatsApp","No WhatsApp? Send by email":"¿Sin WhatsApp? Enviar por correo","No spam. No obligation.":"Sin spam. Sin compromiso.",
 "Family-owned fence contractor in Hollywood, FL.":"Contratista familiar de cercas en Hollywood, FL.","Licensed, bonded & insured. Hablamos español.":"Licencia, fianza y seguro. We speak English.",
-"Contact":"Contacto","Mon–Sat":"Lun–Sáb","Call":"Llamar"
+"Contact":"Contacto","Reviews":"Reseñas","17 Google reviews":"17 reseñas en Google","Stars on Google":"Estrellas en Google","Google reviews":"Reseñas de Google","5 stars on Google. Every single review.":"5 estrellas en Google. En cada reseña.","17 reviews on Google":"17 reseñas en Google","Google review":"Reseña de Google","Google Local Guide":"Local Guide de Google","Read all 17 reviews":"Leer las 17 reseñas","on Google Maps →":"en Google Maps →","Find us":"Encuéntrenos","Get directions":"Cómo llegar","Address":"Dirección","Previous":"Anterior","Next":"Siguiente","Mon–Sat":"Lun–Sáb","Call":"Llamar"
 };
 const orig = new Map();
 function setLang(l){
